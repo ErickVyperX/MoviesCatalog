@@ -64,7 +64,7 @@ public class DataAccessImpl implements DataAccess {
                 numberLine++;
                 line = line.toLowerCase();
                 if (line.contains(content.toLowerCase())) {
-                    return "Your content has been found in line number !" + numberLine;
+                    return String.format("%s %d %c", "Your content has been found in line number ", numberLine, '!');
                 }
                 line = br.readLine();
             }
