@@ -2,6 +2,7 @@ package com.erick.movies.data;
 
 import com.erick.movies.domain.Movie;
 import com.erick.movies.exceptions.*;
+
 import java.io.*;
 import java.util.*;
 
@@ -23,7 +24,6 @@ public class DataAccessImpl implements DataAccess {
         } catch (FileNotFoundException e) {
             throw new ExDataAccess("Create file issue: " + e.getMessage());
         }
-
     }
 
     @Override
@@ -42,14 +42,10 @@ public class DataAccessImpl implements DataAccess {
     @Override
     public void delete(String fileName) {
         File file = new File(fileName);
-        if (file.exists()) {
-            if (file.delete()) {
-                System.out.println("Your file has been deleted!");
-            } else {
-                System.out.println("Your file can't be deleted!");
-            }
+        if (file.delete()) {
+            System.out.println("Your file has been deleted!");
         } else {
-            System.out.println("Your file hasn't been found!");
+            System.out.println("Your file can't be deleted!");
         }
     }
 
@@ -79,17 +75,15 @@ public class DataAccessImpl implements DataAccess {
         List<Movie> list = new ArrayList<>();
         File file = new File(fileName);
         int idCounter = 1;
-        if (file.exists()) {
-            try {
-                var br = new BufferedReader(new FileReader(file));
-                var line = br.readLine();
-                while (line != null) {
-                    list.add(new Movie(idCounter++, line.substring(3)));
-                    line = br.readLine();
-                }
-            } catch (IOException e) {
-                throw new ExDataReading("List movies issue: " + e.getMessage());
+        try {
+            var br = new BufferedReader(new FileReader(file));
+            var line = br.readLine();
+            while (line != null) {
+                list.add(new Movie(idCounter++, line.substring(3)));
+                line = br.readLine();
             }
+        } catch (IOException e) {
+            throw new ExDataReading("List movies issue: " + e.getMessage());
         }
         return list;
     }

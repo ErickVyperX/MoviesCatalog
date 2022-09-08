@@ -1,7 +1,6 @@
 package cpjlaboratoriofinal;
 
 import com.erick.movies.business.*;
-
 import java.util.Scanner;
 
 public class Test {

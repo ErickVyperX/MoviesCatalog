@@ -13,34 +13,47 @@ public class MoviesCatalogImpl implements MoviesCatalog {
 
     @Override
     public void addMovie(String movieName) {
-        Movie movie = new Movie(movieName);
-        var append = dataAccess.exists(FILE_PATH);
-        try {
-            dataAccess.write(movie, FILE_PATH, append);
-        } catch (ExDataWriting e) {
-            System.out.println("Data Access Error!");
+        if (dataAccess.exists(FILE_PATH)) {
+            Movie movie = new Movie(movieName);
+            var append = dataAccess.exists(FILE_PATH);
+            try {
+                dataAccess.write(movie, FILE_PATH, append);
+            } catch (ExDataWriting e) {
+                System.out.println("Data Access Error!");
+            }
+        } else {
+            System.out.println("File not found!");
         }
     }
 
     @Override
     public void listMovies() {
-        try {
-            var movies = dataAccess.list(FILE_PATH);
-            for (var movie : movies) {
-                System.out.println(movie);
+        if (dataAccess.exists(FILE_PATH)) {
+            try {
+                var movies = dataAccess.list(FILE_PATH);
+                for (var movie : movies) {
+                    System.out.println(movie);
+                }
+            } catch (ExDataReading e) {
+                System.out.println("Data Access Error!");
             }
-        } catch (ExDataReading e) {
-            System.out.println("Data Access Error!");
+        } else {
+            System.out.println("File not found!");
         }
     }
 
     @Override
     public void findMovie(String movieName) {
-        try {
-            System.out.println(dataAccess.find(FILE_PATH, movieName));
-        } catch (ExDataReading e) {
-            System.out.println("Data Access Error!");
+        if (dataAccess.exists(FILE_PATH)) {
+            try {
+                System.out.println(dataAccess.find(FILE_PATH, movieName));
+            } catch (ExDataReading e) {
+                System.out.println("Data Access Error!");
+            }
+        } else {
+            System.out.println("File not found!");
         }
+
     }
 
     @Override
