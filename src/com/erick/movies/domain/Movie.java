@@ -6,10 +6,11 @@ import java.util.StringJoiner;
 import static com.erick.movies.business.MoviesCatalog.FILE_PATH;
 
 public class Movie {
-    private int idMovie;
+    private final int idMovie;
     private String name;
     private static int counterIdMovie;
 
+    //Count lines on file to obtain the next ID
     static {
         File file = new File(FILE_PATH);
         int counter = 1;
@@ -25,6 +26,7 @@ public class Movie {
         }
         counterIdMovie = counter;
     }
+
     private Movie() {
         this.idMovie = counterIdMovie++;
     }
@@ -34,6 +36,7 @@ public class Movie {
         this.name = name;
     }
 
+    //Used in list method on DataAccessImpl
     public Movie(int idMovie, String name) {
         this.idMovie = idMovie;
         this.name = name;
