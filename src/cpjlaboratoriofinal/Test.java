@@ -9,6 +9,7 @@ public class Test {
         int option;
         String movieName, lineOption;
         MoviesCatalog moviesCatalog = new MoviesCatalogImpl();
+        //menu de opciones para el metodo main
         do {
             System.out.println("""
                     Welcome to your Movies Catalog. Please, enter a number option:
